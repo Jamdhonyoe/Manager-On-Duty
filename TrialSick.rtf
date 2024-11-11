@@ -1,0 +1,114 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2818
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 <!DOCTYPE html>\
+<html lang="en">\
+<head>\
+    <meta charset="UTF-8">\
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">\
+    <title>Staff Sick Call Tracker</title>\
+    <style>\
+        body \{\
+            font-family: Arial, sans-serif;\
+            display: flex;\
+            justify-content: center;\
+            align-items: center;\
+            height: 100vh;\
+            margin: 0;\
+            background-color: #f4f4f9;\
+        \}\
+        .container \{\
+            max-width: 400px;\
+            padding: 20px;\
+            background-color: white;\
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);\
+            border-radius: 8px;\
+        \}\
+        .form-group \{\
+            margin-bottom: 15px;\
+        \}\
+        label \{\
+            font-weight: bold;\
+        \}\
+        input[type="text"], select, textarea \{\
+            width: 100%;\
+            padding: 10px;\
+            margin-top: 5px;\
+            border: 1px solid #ccc;\
+            border-radius: 4px;\
+        \}\
+        button \{\
+            width: 100%;\
+            padding: 10px;\
+            background-color: #4CAF50;\
+            color: white;\
+            border: none;\
+            border-radius: 4px;\
+            cursor: pointer;\
+        \}\
+        button:hover \{\
+            background-color: #45a049;\
+        \}\
+    </style>\
+</head>\
+<body>\
+    <div class="container">\
+        <h2>Staff Sick Call Tracker</h2>\
+        <form id="sickCallForm">\
+            <div class="form-group">\
+                <label>Date and Time of Call</label>\
+                <input type="text" id="callDateTime" readonly>\
+            </div>\
+            <div class="form-group">\
+                <label>Reason for Sick Call</label>\
+                <textarea id="reason" required></textarea>\
+            </div>\
+            <div class="form-group">\
+                <label>Location</label>\
+                <select id="location" required>\
+                    <option value="">Select Location</option>\
+                    <option value="Location 1">Location 1</option>\
+                    <option value="Location 2">Location 2</option>\
+                    <!-- Add more locations as needed -->\
+                </select>\
+            </div>\
+            <button type="submit">Log Sick Call</button>\
+        </form>\
+    </div>\
+\
+    <script>\
+        // Set the current date and time when the page loads\
+        document.getElementById('callDateTime').value = new Date().toLocaleString();\
+\
+        // Form submission handler\
+        document.getElementById('sickCallForm').addEventListener('submit', function(e) \{\
+            e.preventDefault();\
+\
+            // Collect data\
+            const callDateTime = document.getElementById('callDateTime').value;\
+            const reason = document.getElementById('reason').value;\
+            const location = document.getElementById('location').value;\
+\
+            // Save to local storage (this could also be saved to a server or Google Sheet)\
+            const sickCall = \{\
+                dateTime: callDateTime,\
+                reason: reason,\
+                location: location\
+            \};\
+            let sickCalls = JSON.parse(localStorage.getItem('sickCalls')) || [];\
+            sickCalls.push(sickCall);\
+            localStorage.setItem('sickCalls', JSON.stringify(sickCalls));\
+\
+            // Clear form and notify the user\
+            alert('Sick call logged successfully!');\
+            document.getElementById('sickCallForm').reset();\
+            document.getElementById('callDateTime').value = new Date().toLocaleString();\
+        \});\
+    </script>\
+</body>\
+</html>\
+}
